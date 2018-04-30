@@ -1,266 +1,168 @@
 /**
- * 
+ *CS 560
+ * SPRING 2018
+ * Group Project:
+ * Minimal-Cost Path through a Hexagonally-Tiled Map
+ * Group 23: BROWN, TITUS - LAL, JAYTI - PENALOZA, LUZ - SCHIELE, REBECCA
  */
 package shortestPath;
 
-import java.util.HashMap;
+//IMPORTS
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
- * @author Owner
+ * @author BROWN, TITUS - PENALOZA, LUZ: relax and minimum extraction
+ * @author PENALOZA, LUZ: path out
+ * @author SCHIELE, REBECCA: setup, cleanup, comments
  *
  */
-class DijkstraAlg {
-	int currentVertex;
-	int currVerIndex;
-	int currAdjNIndex;
-	int distIndex;
-	int parIndex;
-	int w;
-	int MAXV = 233;
-	int start = 226;
+public class DijkstraAlg {
+
+	// INSTANCE DECLARATION
+	Populator validEntries;
+	AdjacencyChecker aCheck;
+
+	// INITIALIZE MARKERS
+	int START = 226;
+	int END = 8;
+
+	// INIIALIZE NEEDED VERTICES
+	int currentVertex = 0;
+	int currentAdjNVertex = 0;
+
+	// INITIALIZE INDICES
+	int currVerIndex = 0;
+	private int curVertIndex;
+	int currAdjNIndex = 0;
+	int distIndex = 0;
+	int parIndex = 0;
+
+	// INITIALIZE WORKING VALUES
+	int MAXV = 0;
 	double MAXDOUB = 9999.0;
-	double currentWeight;
-	double dist;
+	double currentWeight = 0;
+	double dist = 0;
+	int aListSize = 0;
+
+	// TREE DECLARATION
 	Boolean[] inTree;
-	// List<Integer> pNumList;
 	Double[] distance;
 	Integer[] parent;
-	// Populator validEntries;
-	// AdjacencyChecker aCheck;
-	int currentAdjNeighbor;
-	List<Integer> pNumList;
-	private int curVertIndex;
-	// List<Double> cList;
 
-	/**
-		 * 
-		 */
+	// LIST DECLARATION
+	List<Integer> pNumList;
+	List<Double> eWeightList;
 
 	public DijkstraAlg() {
+		dijkstraPrep();
+		initialize();
 
-		currVerIndex = 0;
-		currAdjNIndex = 0;
-		distIndex = 0;
-		parIndex = 0;
-		Populator validEntries = new Populator();
-
-		List<Integer> cList = validEntries.getCostList();
-		List<Double> eWeightList = validEntries.getEdgeWeightList();
-		AdjacencyChecker aCheck = new AdjacencyChecker();
-		// MAXV = pNumList.size();
-		inTree = new Boolean[68 + 1];
-		distance = new Double[68 + 1];
-		parent = new Integer[68 + 1];
-
-		pNumList = validEntries.getPositionNumberList();
-		currentVertex = start;
-		currVerIndex = pNumList.indexOf(currentVertex);
-		currentVertex = start;
-	//	System.out.println(currentVertex);
-		initialize(currVerIndex);
-		int aCheckCount = 0;
-		// int[] aCheckPrim = ((Collection<Integer>)
-		// aCheck.getAdjacencyList()).stream().mapToInt(Integer::intValue).toArray();
-		// for (int i = 0; i < 233; i++) {
-		// System.out.println(aCheck.getAdjacencyList().get(i));
-		// if (aCheck.getAdjacencyList().get(i) != null) {
-		// System.out.println(aCheck.getAdjacencyList().get(i));
-
-		// }
-		// System.out.println(aCheck.getAdjacencyList().containsKey(validEntries));
-		// }
-
-		// int j = 0;
-		// System.out.println(pNumList.indexOf(currentVertex));
-		while (!inTree[currVerIndex] && (currentVertex != 8)) {
-			/*
-			 * 21 while ( !intree[v] ) 22 { 23 intree[v] = TRUE ; //21 While the
-			 * current vertex is not in the tree, //23 place the current vertex
-			 * in the tree
-			 */
-			// j++;
+		// While the current vertex is not in the tree, place the current vertex
+		// in the tree.
+		while (!inTree[currVerIndex] && (currentVertex != END)) {
 			inTree[currVerIndex] = Boolean.TRUE;
-			// System.out.println(aCheck.getAdjacencyList().get(38));
 
-			// }
-			// System.out.println(pNumIndex);
-			// System.out.println(pNumList.);
-			/*
-			 * 24 p = g-> edges[v] ; 25 while ( p != NULL ) 26 { 27 w = p->y ;
-			 * 28 weight = p->weight ; //24 get the adjacency list for the
-			 * current vertex. //25 while there are unvisited adjacent
-			 * neighbors, //27 Visit the next unvisited neighbor and get its
-			 * vertex //28 Set weight equal to the edge weight of the currently
-			 * visited adjacent neighbor //29-33 relax() //34 Go to the next
-			 * unvisited neighbor (may be redundant.)
-			 */
-			// int j = 0;
-			// currVerIndex = pNumList.indexOf(currentVertex);
-
-			// while (aCheck.getAdjacencyList().get(j) != null) {
-			// while(currentVertex != 8)
-			// int j = 0;
-
-			for (int j = 0; j < (aCheck.getAdjacencyList().get(currentVertex).size()); j++) {
-				// do{
-				// if(currentVertex != 8){
-				currentAdjNeighbor = aCheck.getAdjacencyList().get(currentVertex).get(j);
-				// if ((currentAdjNeighbor != null)) {
-
-				// if (aCheck.getAdjacencyList().get(currentVertex).get(j)
-				// != null) {
-				// System.out.println(aCheck.getAdjacencyList().get(currentVertex).get(j));
+			// Determine the edge weights for the current vertex and adjacent
+			// neighbors for relax.
+			aListSize = aCheck.getAdjacencyList().get(currentVertex).size();
+			for (int j = 0; j < aListSize; j++) {
+				currentAdjNVertex = aCheck.getAdjacencyList().get(currentVertex).get(j);
 				currentWeight = eWeightList.get(currVerIndex);
-				// System.out.println(currentWeight);
-				relax(pNumList);
-				// if(currentVertex == 8){
-				// break;
-				// }
-				// }
-				// }
-				// j++;
-				// }while(currentAdjNeighbor != 8);
-
+				relax();
 			}
 
-			// line36
+			// Extract the minimim vertex from inTree.
 			currentVertex = 1;
 			dist = MAXDOUB;
-			for (int i = 1; i <= 68; i++)
+			for (int i = 1; i <= MAXV; i++)
 				if (!inTree[i] && (dist > distance[i])) {
 					dist = distance[i];
 					currentVertex = pNumList.get(i);
 					currVerIndex = i;
 				}
-
-			// System.out.println(currentVertex);
-
-//			pathOut(aCheck, start, currentVertex);
 		}
 
-		//for (int i = 0; i < parent.length - 1; i++) {
-			pathOut(aCheck, start, currentVertex);
-		//PathOut pathOut = new PathOut(aCheck, start, currentVertex);
-			// System.out.println(parent[i]);
-			// System.out.println(pNumList.get(i) + " " + distance[i] + " " +
-			// parent[i]);
-		//}
-
+		// Print the shortest path.
+		pathOut(aCheck, START, currentVertex);
 	}
-	/*
-	 * 36 v = 1 ; 37 dist = MAXINT ; 38 for ( i = 1 ; i <= g->nvertices ; i++ )
-	 * 39 if ( !intree[i] && (dist > distance[i]) ) 40 { 41 dist = distance[i] ;
-	 * 42 v = i ; 43 } 44 } //36 Set the current vertex equal to 1
-	 * 
-	 * //37 Set the current shortest distance equal to MAXINT
-	 * 
-	 * //38 For index i from 1 to the number of vertices in the graph
-	 * 
-	 * //39 If the value located in the intree array at the position of index i
-	 * is FALSE AND the current distance is greater than the value of the
-	 * distance array located in the position of index i
-	 * 
-	 * //41 Then set the current distance equal to value of the distance array
-	 * located in the position of
-	 * 
-	 * //42 Also, set the value of the current vertex equal to index i.
+
+	/**
+	 * Instantiates necessary objects, gets needed data, and prepares working
+	 * arrays.
 	 */
+	private void dijkstraPrep() {
+		validEntries = new Populator();
+		aCheck = new AdjacencyChecker();
+		pNumList = validEntries.getPositionNumberList();
+		eWeightList = validEntries.getEdgeWeightList();
 
-	// aCheck.getAdjacencyList()
-	// .forEach((k, v) -> System.out.println("Position Number: " + k + "
-	// Adjacent Vertices: " + v));
-	// System.out.println(aCheck.getAdjacencyList().values());
-	// System.out.println(aCheck.getAdjacencyList().get(i));
+		if (validEntries.getStart() != START) {
+			System.out.println("Start required to be at position 226.");
+			java.lang.System.exit(-1);
 
-	// for (int k = 1; k <
-	// aCheck.getAdjacencyList().values().size(); k++) {
-	// System.out.println("A check: " + aCheckCount++ + " " +
-	// aCheck.getAdjacencyList().get(k));
-	// }
-	// System.out.println(aCheck.getAdjacencyList().values().size());
+		}
+		if (validEntries.getEnd() != END) {
+			System.out.println("End required to be at position 8.");
+			java.lang.System.exit(-2);
 
-	// }
-	// }
+		} else {
+			currentVertex = START;
 
-	void initialize(int currVerIndex2) {
+		}
+		currVerIndex = pNumList.indexOf(currentVertex);
+		MAXV = pNumList.size();
+		inTree = new Boolean[MAXV + 1];
+		distance = new Double[MAXV + 1];
+		parent = new Integer[MAXV + 1];
+	}
+
+	/**
+	 * Initializes the working arrays.
+	 */
+	void initialize() {
 		Arrays.fill(inTree, Boolean.FALSE);
 		Arrays.fill(distance, MAXDOUB);
 		Arrays.fill(parent, -1);
-		distance[currVerIndex2] = 0.0;
+		distance[currVerIndex] = 0.0;
 	}
 
-	void relax(List<Integer> pNumList) {
-		/*
-		 * 29 >>> if ( distance[w] > (distance[v] + weight) ) 30 { 31 >>>
-		 * distance[w] = distance[v] + weight ; 32 parent[w] = v ; 33 }
-		 * 
-		 * 
-		 * // 29 If the value of the distance array located in the position of
-		 * the vertex of the currently visited adjacent neighbor is greater than
-		 * the sum of the value of the distance array located in the position of
-		 * the current vertex and weight,
-		 * 
-		 * //31 then set value of the distance array located in the position of
-		 * the vertex of the currently visited adjacent neighbor equal the sum
-		 * of the value of the distance array located in the position of the
-		 * current vertex and weight.
-		 * 
-		 * // 32 Also, place the current vertex in the location of the parent
-		 * array which corresponds to the vertex of the currently visited
-		 * adjacent neighbor.
-		 */
-		// validEntries = new Populator();
-
-		// pNumList = validEntries.getPositionNumberList();
-
-		currAdjNIndex = pNumList.indexOf(currentAdjNeighbor);
+	/**
+	 * Updates the optimal distance by choosing the lesser of the current
+	 * optimal distance and the distance of the adjacent neighbor. Updates the
+	 * parent of the adjacent neighbor when the adjacent neighbor distance is
+	 * lesser.
+	 */
+	void relax() {
+		currAdjNIndex = pNumList.indexOf(currentAdjNVertex);
 		if (distance[currAdjNIndex] > (distance[currVerIndex] + currentWeight)) {
 			distance[currAdjNIndex] = (distance[currVerIndex] + currentWeight);
 			parent[currAdjNIndex] = currentVertex;
 		}
 	}
-	/*
-	 * if(distance[currentAdjNeighbor]>(distance[currentVertex]+currentWeight))
-	 * 
-	 * { // take // smaller // distance distance[currentAdjNeighbor] =
-	 * (distance[currentVertex] + currentWeight); parent[currentAdjNeighbor] =
-	 * currentVertex; }
-	 * 
-	 * }
-	 */
 
+	/**
+	 * Prints out the the vertices of the shortest path based on the
+	 * breadth-first tree created by Dijkstra's.
+	 * 
+	 * @param adjC
+	 *            The working instance of AdjacencyChecker
+	 * @param s
+	 *            The starting vertex
+	 * @param cVert
+	 *            The current vertex
+	 */
 	void pathOut(AdjacencyChecker adjC, int s, int cVert) {
 		Populator validEntries = new Populator();
 		pNumList = validEntries.getPositionNumberList();
 		curVertIndex = pNumList.indexOf(cVert);
 		if (cVert == s) {
 			System.out.println(s);
-		}
-
-		else if (parent[curVertIndex] == -1) {
-
-		}
-
-		else {
-			//cVert = parent[currVerIndex];
+		} else if (parent[curVertIndex] == -1) {
+		} else {
 			pathOut(adjC, s, parent[curVertIndex]);
 			System.out.println(cVert);
 		}
 	}
 
-	/*
-	 * void findMin() { Map.Entry<Integer, List<Integer>> maxEntry = null; for
-	 * (int i = 0; i < aCheck.getAdjacencyList().values().size(); i++) {
-	 * aCheck.getAdjacencyList().get(i); } for (Map.Entry<Integer,
-	 * List<Integer>> entry : aCheck.getAdjacencyList().entrySet()) { // if
-	 * (maxEntry == null || ((Boolean) //
-	 * entry.getValue()).compareTo(maxEntry.getValue()) > 0) // { // maxEntry =
-	 * entry; // } // Math.max(entry.getValue()); }
-	 * 
-	 * }
-	 */
 }
