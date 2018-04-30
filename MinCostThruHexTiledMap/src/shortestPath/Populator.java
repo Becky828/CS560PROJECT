@@ -4,6 +4,8 @@
  * Group Project:
  * Minimal-Cost Path through a Hexagonally-Tiled Map
  * Group 23: BROWN, TITUS - LAL, JAYTI - PENALOZA, LUZ - SCHIELE, REBECCA
+ * 
+ *  LAL and PENALOZA met up 04/03/18 to discuss implementation of receiving input.
  */
 
 package shortestPath;

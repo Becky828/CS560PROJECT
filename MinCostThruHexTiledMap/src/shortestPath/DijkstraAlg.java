@@ -4,6 +4,11 @@
  * Group Project:
  * Minimal-Cost Path through a Hexagonally-Tiled Map
  * Group 23: BROWN, TITUS - LAL, JAYTI - PENALOZA, LUZ - SCHIELE, REBECCA
+ *
+ * As of 04/29/18, all group members met three times to discuss code implementation for this class.  
+ * BROWN, PENALOZA, and SCHIELE discussed implementation of minimum extraction and pathOut on 04/24/18.
+ * 
+ * PENALOZA and SCHIELE met up briefly on 04/14/18 to discuss Dijkstra's Algorithm implementation.
  */
 package shortestPath;
 
