@@ -1,0 +1,78 @@
+(RS) Here is the beginning of a list of references of sources that I referred to when working on the project.  Please reply all to this email with references that you utilize as you go.
+
+
+(RS) File name from user input
+http://chortle.ccsu.edu/java5/notes/chap23/ch23_14.html
+
+(RS) buffered reader
+https://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
+
+(RS) read parts of a line
+https://stackoverflow.com/questions/29583385/java-bufferedreader-how-to-read-parts-of-a-line
+
+(RS) String to Int
+https://www.mkyong.com/java/java-convert-string-to-int/
+
+(RS) ArrayList null pointer exception
+https://stackoverflow.com/questions/3949926/java-nullpointerexception-when-adding-to-arraylist
+
+(RS) String to Double
+http://javadevnotes.com/java-string-to-double-examples
+
+(RS) Closing
+https://stackoverflow.com/questions/1388602/do-i-need-to-close-both-filereader-and-bufferedreader
+
+(RS) Passing ArrayList
+https://stackoverflow.com/questions/20193243/pass-arraylist-to-another-class
+
+(RS) Returning Multiple types
+https://stackoverflow.com/questions/29410340/can-a-method-be-able-to-return-different-data-types/29410403
+
+(RS) Triplet
+https://www.javatuples.org/using.html
+
+(RS) Triplet
+https://stackoverflow.com/questions/6010843/java-how-to-store-data-triple-in-a-list
+
+(RS) Accessing ArrayList from other class
+https://stackoverflow.com/questions/16462163/java-how-to-access-an-arraylist-of-another-class
+
+(RS) Boolean Array
+https://stackoverflow.com/questions/2364856/initializing-a-boolean-array-in-java
+
+(RS) Max Method
+https://www.tutorialspoint.com/java/number_max.htm
+
+
+(RS) Eclipse Running Time
+https://stackoverflow.com/questions/6646467/how-to-find-time-taken-to-run-java-program
+
+(RS) Nanoseconds to seconds
+https://stackoverflow.com/questions/924208/how-to-convert-nanoseconds-to-seconds-using-the-timeunit-enum
+
+
+Github link
+https://github.com/luzpenaloza/CS560PROJECT/invitations
+
+(RS) For each Hash Map
+https://www.mkyong.com/java8/java-8-foreach-examples/
+
+(RS) Max
+https://www.tutorialspoint.com/java/number_max.htm
+
+(RS) Integer cast
+https://www.mkyong.com/java/java-convert-string-to-int/
+
+(RS) Max Value HashMap
+https://stackoverflow.com/questions/5911174/finding-key-associated-with-max-value-in-a-java-map
+
+(RS) List<Integer> to integer array
+http://www.techiedelight.com/convert-list-integer-array-int/
+
+(RS) is Numeric
+https://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
+
+(RS) StringTokenizer
+https://docs.oracle.com/javase/7/docs/api/java/util/StringTokenizer.html
+
+

@@ -1,0 +1,46 @@
+DIJKSTRA'S SINGLE SOURCE OPTIMAL PATHS ALGORITHM (C)
+01 dijkstra(graph *g, int start)
+02 {
+03 int i ;
+04 int v ;
+05 int w ;
+06 int weight ;
+07 int dist ;
+08 bool intree[MAXV+1] ;//global const MAXV=max # of vertices
+09 int distance[MAXV+1] ;
+10 int parent[MAXV+1] ;
+11
+12 for ( i = 1 ; i <= g->nvertices ; i++)
+13 {
+14 intree[i] = FALSE ;
+15 distance[i] = MAXINT ;//global const MAXINT=max integer
+16 parent[i] = -1 ;
+17 }
+18 distance[start] = 0 ;
+19 v = start ;
+20
+21 while ( !intree[v] )
+22 {
+23 intree[v] = TRUE ;
+24 p = g-> edges[v] ;
+25 while ( p != NULL )
+26 {
+27 w = p->y ;
+28 weight = p->weight ;
+29 >>> if ( distance[w] > (distance[v] + weight) )
+30 {
+31 >>> distance[w] = distance[v] + weight ;
+32 parent[w] = v ;
+33 }
+34 p = p->next ;
+35 }
+36 v = 1 ;
+37 dist = MAXINT ;
+38 for ( i = 1 ; i <= g->nvertices ; i++ )
+39 if ( !intree[i] && (dist > distance[i]) )
+40 {
+41 dist = distance[i] ;
+42 v = i ;
+43 }
+44 }
+45 }

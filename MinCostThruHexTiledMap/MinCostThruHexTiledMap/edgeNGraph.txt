@@ -1,0 +1,17 @@
+SDSU CS 560
+Algorithms
+"EDGENODE" AND "GRAPH" DATA STRUCTURES (C)
+(REFERENCED BY PRIM'S AND DIJKSTRA'S ALGORITHMS; SEE FOLLOWING)
+01 typedef struct
+02 {
+03 int y ; /*dest vertex of directed edge */
+04 int weight ; /* edge weight */
+05 struct edgenode *next ; /*link to next edge in list */
+06 } edgenode ;
+07
+08 typedef struct
+09 {
+10 edgenode *edges[MAXV+1] ; /* adj list for each vertex */
+11 int nvertices /* number of vertices in graph */
+12 int nedges /* number of edges in graph */
+13 } graph ;
