@@ -49,8 +49,9 @@ class Populator {
 		try {
 			BufferedReader buffR = null;
 			FileReader fileR = null;
-			File in = new File("testInputA.txt");
+			File in = new File("test_input_1.txt");
 			// File("C:/Users/Owner/Desktop/CS560/HexShortestPath/Inputb.txt");
+			//File in = new File("testInputA.txt");
 			fileR = new FileReader(in);
 			buffR = new BufferedReader(fileR);
 
@@ -127,6 +128,16 @@ class Populator {
 		return positionNumberList;
 	}
 
+	
+	/**
+	 * Returns the cost list.
+	 *
+	 * @return cost list
+	 */
+	public ArrayList<Integer> getCostList() {
+		return costList;
+	}
+	
 	/**
 	 * Returns the edge weight list.
 	 *

@@ -49,7 +49,7 @@ public class DijkstraAlg {
 	double currentWeight = 0;
 	double dist = 0;
 	int aListSize = 0;
-
+	int optimalCost = 0;
 	// TREE DECLARATION
 	Boolean[] inTree;
 	Double[] distance;
@@ -57,6 +57,7 @@ public class DijkstraAlg {
 
 	// LIST DECLARATION
 	List<Integer> pNumList;
+	List<Integer> cList;
 	List<Double> eWeightList;
 
 	public DijkstraAlg() {
@@ -90,6 +91,9 @@ public class DijkstraAlg {
 
 		// Print the shortest path.
 		pathOut(aCheck, START, currentVertex);
+		System.out.println();
+		System.out.println("MINIMAL-COST PATH COSTS: " + optimalCost);
+
 	}
 
 	/**
@@ -102,24 +106,30 @@ public class DijkstraAlg {
 		pNumList = validEntries.getPositionNumberList();
 		eWeightList = validEntries.getEdgeWeightList();
 
+		// Ensures that the required starting place is present.
 		if (validEntries.getStart() != START) {
 			System.out.println("Start required to be at position 226.");
 			java.lang.System.exit(-1);
 
 		}
+
+		// Ensures that the required ending place is present.
 		if (validEntries.getEnd() != END) {
 			System.out.println("End required to be at position 8.");
 			java.lang.System.exit(-2);
 
 		} else {
-			currentVertex = START;
 
+			//Initializes the starting progression values.
+			currentVertex = START;
+			currVerIndex = pNumList.indexOf(currentVertex);
+			MAXV = pNumList.size();
+
+			// Declares the working arrays.
+			inTree = new Boolean[MAXV + 1];
+			distance = new Double[MAXV + 1];
+			parent = new Integer[MAXV + 1];
 		}
-		currVerIndex = pNumList.indexOf(currentVertex);
-		MAXV = pNumList.size();
-		inTree = new Boolean[MAXV + 1];
-		distance = new Double[MAXV + 1];
-		parent = new Integer[MAXV + 1];
 	}
 
 	/**
@@ -156,18 +166,24 @@ public class DijkstraAlg {
 	 *            The starting vertex
 	 * @param cVert
 	 *            The current vertex
+	 * @return optimal cost
 	 */
-	void pathOut(AdjacencyChecker adjC, int s, int cVert) {
+	int pathOut(AdjacencyChecker adjC, int s, int cVert) {
 		Populator validEntries = new Populator();
 		pNumList = validEntries.getPositionNumberList();
+		cList = validEntries.getCostList();
 		curVertIndex = pNumList.indexOf(cVert);
 		if (cVert == s) {
 			System.out.println(s);
+			optimalCost += cList.get(pNumList.indexOf(s));
 		} else if (parent[curVertIndex] == -1) {
 		} else {
 			pathOut(adjC, s, parent[curVertIndex]);
 			System.out.println(cVert);
+			optimalCost += cList.get(pNumList.indexOf(cVert));
+
 		}
+		return optimalCost;
 	}
 
 }
